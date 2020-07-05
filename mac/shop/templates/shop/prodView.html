@@ -1,0 +1,87 @@
+{% extends 'shop/basic.html' %}
+
+{% block title%} {{product.product_name}} - My Awesome Cart{% endblock %}
+{% block body %}
+<div class="container my-5">
+    <div class="row">
+    <div class="col-md-4">
+    <div class="row">
+        <img src="/media/{{product.image}}" width="335px" height="335px">
+    </div>
+        <div class="row my-5">
+            <button class="btn btn-primary mx-3">Buy Now</button>
+            <button class="btn btn-primary">Add To Cart</button>
+        </div>
+
+    </div>
+
+    <div class="col-md-8">
+
+        <h5>{{product.product_name}}</h5>
+        <p><b>Rs.{{product.price}} </b></p>
+        <p>{{product.desc}}</p>
+        <p>
+
+<pre>
+    <b>Save Extra with 3 offers</b>
+<b>
+    *  No Cost EMI: No cost EMI available on select cards. Please check 'EMI options'
+    * Cashback: Get ₹50 cashback, pay with Amazon Pay UPI. Valid on minimum order of ₹250.
+    * Partner Offers (3): Get FLAT5% BACK with AmazonPay ICICI Bank Credit card .
+    * Flat 3% BACK for non-Prime members. No minimum order value.
+    * Avail EMI on Debit Cards. Get credit up to ₹1,00,000.
+    * Get GST invoice and save up to 28% on business purchases. </b>
+</pre>
+</p>
+
+
+    </div>
+
+
+</div>
+ <p> <pre><b>Have a question?
+    Find answers in product info, Q&As, reviews </b></pre>
+
+<nav class="navbar navbar-light bg-light">
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search your query here" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search your query</button>
+  </form>
+</nav>
+
+</div>
+{% endblock %}
+
+
+
+
+{% block js %}
+<script>
+console.log('working');
+if(localStorage.getItem('cart') == null){
+var cart = {};
+}
+else
+{
+cart = JSON.parse(localStorage.getItem('cart'));
+document.getElementById('cart').innerHTML = Object.keys(cart).length;
+}
+$('.cart').click(function(){
+console.log('clicked');
+var idstr = this.id.toString();
+console.log(idstr);
+if (cart[idstr] !=undefined){
+cart[idstr] = cart[idstr] + 1;
+}
+else
+{
+cart[idstr] = 1;
+}
+console.log(cart);
+localStorage.setItem('cart', JSON.stringify(cart));
+document.getElementById('cart').innerHTML = Object.keys(cart).length;
+});
+$('#popcart').popover();
+document.getElementById("popcart").setAttribute('data-content', '<h5>Cart for your items in my shopping cart</h5>');
+</script>
+{% endblock %}
